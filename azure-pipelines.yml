@@ -23,5 +23,5 @@ steps:
   displayName: 'Use PHP version $(phpVersion)'
 
 - script: composer install --no-interaction --prefer-dist
-  workingDirectory: $(rootFolder)/code
+  workingDirectory: $(System.DefaultWorkingDirectory)/code
   displayName: 'composer install'
