@@ -33,3 +33,10 @@ resource "azurerm_app_service" "dev" {
   app_service_plan_id = "${azurerm_app_service_plan.dev.id}"
 
 }
+
+resource "azurerm_mysql_server" "dev" {
+  name                = "example-mysqlserver"
+  location            = azurerm_resource_group.dev.location
+  resource_group_name = azurerm_resource_group.dev.name	
+  version    = "5.7"
+}
