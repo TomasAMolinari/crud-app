@@ -6,22 +6,30 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+stages:
+- stage: Build
+  jobs:
+  - job: Build
 
-variables:
-  phpVersion: 7.2
+    pool:
+      vmImage: ubuntu-latest
+    
+    variables:
+      phpVersion: 7.2
+      
+    steps:
+    - script: |
+        sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+        sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+        sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+        sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+        sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+        php -version
+      displayName: 'Use PHP version $(phpVersion)'
 
-steps:
-- script: |
-    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
-    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
-    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
-    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
-    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
-    php -version
-  displayName: 'Use PHP version $(phpVersion)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
 
-- script: composer install --no-interaction --prefer-dist
-  workingDirectory: $(System.DefaultWorkingDirectory)/code
-  displayName: 'composer install'
