@@ -79,7 +79,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "example" {
 #MySQL Flexible Server
 
 resource "azurerm_mysql_flexible_server" "example" {
-  name                   = "example-fs"
+  name                   = "mySQL-db-lab-5"
   resource_group_name    = azurerm_resource_group.example.name
   location               = azurerm_resource_group.example.location
   administrator_login    = "psqladmin"
