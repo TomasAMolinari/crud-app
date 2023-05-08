@@ -40,6 +40,11 @@ resource "azurerm_linux_web_app" "example" {
   }
 }
 
+resource "azurerm_app_service_source_control" "example" {
+  app_id        = azurerm_linux_web_app.example.id
+  use_local_git = true
+}
+
 #Networking
 
 resource "azurerm_virtual_network" "example" {
