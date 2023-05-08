@@ -19,25 +19,25 @@ resource "azurerm_resource_group" "example" {
 
 #App service
 
-resource "azurerm_app_service_plan" "example" {
+resource "azurerm_service_plan" "example" {
   name                = "__appserviceplan__"
   location            = "${azurerm_resource_group.example.location}"
   resource_group_name = "${azurerm_resource_group.example.name}"
-  kind		      = "Linux"
-  reserved	      = "true"	
-
-  sku {
-    tier = "Free"
-    size = "F1"
-  }
+  os_type	      = "Linux"
+  sku_name            = "F1"
 }
 
-resource "azurerm_app_service" "example" {
+resource "azurerm_linux_web_app" "example" {
   name                = "__appservicename__"
-  location            = "${azurerm_resource_group.example.location}"
-  resource_group_name = "${azurerm_resource_group.example.name}"
-  app_service_plan_id = "${azurerm_app_service_plan.example.id}"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  service_plan_id     = azurerm_service_plan.example.id
 
+  site_config {
+    application_stack {
+      php_version = "7.2"
+    }
+  }
 }
 
 #Networking
