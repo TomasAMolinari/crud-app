@@ -35,7 +35,7 @@ resource "azurerm_linux_web_app" "example" {
 
   site_config {
     application_stack {
-      php_version = "7.2"
+      php_version = "8.0"
     }
   }
 }
