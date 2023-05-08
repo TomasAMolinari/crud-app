@@ -23,6 +23,8 @@ resource "azurerm_app_service_plan" "example" {
   name                = "__appserviceplan__"
   location            = "${azurerm_resource_group.example.location}"
   resource_group_name = "${azurerm_resource_group.example.name}"
+  kind		      = "Linux"
+  reserved	      = "true"	
 
   sku {
     tier = "Free"
