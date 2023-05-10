@@ -54,7 +54,6 @@ resource "azurerm_mysql_flexible_server" "example" {
   administrator_login    = "psqladmin"
   administrator_password = "H@Sh1CoR3!"
   backup_retention_days  = 7
-  public_network_access_enabled = true
 
   sku_name               = "GP_Standard_D2ds_v4"
 
